@@ -1,0 +1,33 @@
+body {
+    background: black;
+}
+
+h1.white {
+    color: white;
+}
+
+.box,
+.mainHeader {
+    background: white;
+    box-sizing: border-box;
+    padding: 20px;
+    min-height: 250px;
+    display: block;
+    margin-top: 100px;
+}
+
+.red {
+    background: #FF6B6B;
+}
+
+.yellow {
+    background: #C7F464;
+}
+
+.pacifica {
+    background: #4ECDC4;
+}
+
+.slate {
+    background: #556270;
+}
