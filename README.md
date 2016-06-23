@@ -19,9 +19,9 @@ This method gives you an additional options, including different time and type o
  - animate-time="" just type your time in seconds
  - animate-type="" use one from lis below
 
-``` top ``` Element slides from below to top
-``` left ``` Element slides from right to left
-```class-[your_class] ``` Adding [your_class] as an efect on scroll
+* ``` top ``` Element slides from below to top
+* ``` left ``` Element slides from right to left
+* ```class-[your_class] ``` Adding [your_class] as an efect on scroll
 
 
 For example:
