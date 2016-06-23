@@ -16,16 +16,20 @@ So first of all you have to add a 'scrollshow' to your element. It adds a defaul
 
 This method gives you an additional options, including different time and type of animation. You can also add your css class. Just do as written below
 
- - animate-time="[timeInSeconds]"
- - animate-type="[]"
+ - animate-time="" just type your time in seconds
+ - animate-type="" use one from lis below
 
- ``` top ``` 
+``` top ``` Element slides from below to top
+``` left ``` Element slides from right to left
+```class-[your_class] ``` Adding [your_class] as an efect on scroll
 
-Element slides from below to top
 
+For example:
 
 ```
 
-
+<div slideshow animate-type="left"></div> // gives you a slide left effect with default time
+<div slideshow></div> // default options for all effects
+<div slideshow animate-time="0.1"></div> // gives you a default slide top effect but with your own time set
 
 ```
