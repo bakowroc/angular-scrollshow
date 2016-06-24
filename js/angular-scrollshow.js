@@ -31,6 +31,20 @@
             .css('transition', time + 's linear');
     }
 
+    /*SlideToBottom*/
+    function slideToBottomDefault(handler) {
+        angular.element(handler)
+            .css('opacity', '0')
+            .css('transform', 'translateY(-200px)');
+    }
+
+    function slideToBottom(handler, time) {
+        angular.element(handler)
+            .css('opacity', '1')
+            .css('transform', 'translateY(0px)')
+            .css('transition', time + 's linear');
+    }
+
     /*SlideToLeft*/
     function slideToLeftDefault(handler) {
         angular.element(handler)
@@ -46,23 +60,51 @@
             .css('transition', time + 's linear');
     }
 
+    /*SlideToRight*/
+    function slideToRightDefault(handler) {
+        angular.element(handler)
+            .css('opacity', '0')
+            .css('transform', 'translateX(50%)');
+
+    }
+
+    function slideToRight(handler, time) {
+        angular.element(handler)
+            .css('opacity', '1')
+            .css('transform', 'translateX(0%)')
+            .css('transition', time + 's linear');
+    }
+
+
 
     /*Execute a choice*/
     function chooseAnimate(choice, handler, time) {
         if (choice == 'top')
             slideToTop(handler, time);
+        else if (choice == 'bottom')
+            slideToBottom(handler, time);
         else if (choice == 'left')
             slideToLeft(handler, time);
+        else if (choice == 'right')
+            slideToRight(handler, time);
+        else if (choice = 'none')
+            return 0;
 
     }
 
     function chooseAnimateDefault(choice, handler) {
         if (choice == 'top')
             slideToTopDefault(handler);
+        else if (choice == 'bottom')
+            slideToBottomDefault(handler);
         else if (choice == 'left')
             slideToLeftDefault(handler);
-
+        else if (choice == 'right')
+            slideToRightDefault(handler);
+        else if (choice = 'none')
+            return 0;
     }
+
     var app = angular.module('scrollshow', []);
     app.directive("scrollshow", function ($window) {
         return function (scope, element, attrs) {
