@@ -108,13 +108,12 @@
     }
 
     /*Add and remove class*/
-    function addMyClass(handler, myClass, time) {
-        handler.addClass(myClass).css();
+    function addMyClass(handler, myClass) {
+        angular.element(handler).addClass(myClass);
     }
     var app = angular.module('scrollshow', []);
     app.directive("scrollshow", function ($window, $timeout) {
         return function (scope, element, attrs) {
-
             angular.element($window).bind("scroll", function () {
                 var thisElement = element[0];
                 var alreadyScrolled = false;
@@ -123,13 +122,16 @@
                 var fixedWidth = 0; //default fix for width calculate if animate is top or bottom
                 var delayTime = 0; //default animate-class-time if not given
                 var myClass = null;
+                var changeClassAnimate = false;
                 var height = Math.round(thisElement.getBoundingClientRect().top) - $window.innerHeight;
                 if (attrs.animateClass != undefined) {
                     myClass = attrs.animateClass;
                     if (attrs.animateClassTime != undefined) {
                         delayTime = attrs.animateClassTime;
+                        delayTime *= 1000;
                     }
-                    $timeout(addMyClass(thisElement, myClass, delayTime), delayTime * 1000);
+                    changeClassAnimate = true;
+
                 }
                 if (attrs.animateTime != undefined) {
                     animateTime = attrs.animateTime;
@@ -141,11 +143,15 @@
                     fixedWidth = 200;
                 else if (animateType == 'bottom')
                     fixedWidth = -200;
-                height = height - fixedWidth; //if upper if/else change fixedWidth value it calculate total height
+                height -= fixedWidth; //if upper if/else changes fixedWidth value it calculate total height
                 if (!alreadyScrolled)
                     chooseAnimateDefault(animateType, thisElement); //Execute an default settings for animate
                 if (height <= 0) {
                     chooseAnimate(animateType, thisElement, animateTime); //Execute an animate
+                    if (changeClassAnimate)
+                        $timeout(function () {
+                            addMyClass(thisElement, myClass)
+                        }, delayTime);
                     alreadyScrolled = true; // don't change any on scroll if element has been showed once
                 }
                 scope.$apply();
