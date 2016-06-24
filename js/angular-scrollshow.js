@@ -31,6 +31,7 @@
             .css('transition', time + 's linear');
     }
 
+
     /*SlideToBottom*/
     function slideToBottomDefault(handler) {
         angular.element(handler)
@@ -44,6 +45,7 @@
             .css('transform', 'translateY(0px)')
             .css('transition', time + 's linear');
     }
+
 
     /*SlideToLeft*/
     function slideToLeftDefault(handler) {
@@ -59,6 +61,7 @@
             .css('transform', 'translateX(0%)')
             .css('transition', time + 's linear');
     }
+
 
     /*SlideToRight*/
     function slideToRightDefault(handler) {
@@ -76,8 +79,7 @@
     }
 
 
-
-    /*Execute a choice*/
+    /*Execute an animate choice*/
     function chooseAnimate(choice, handler, time) {
         if (choice == 'top')
             slideToTop(handler, time);
@@ -105,25 +107,40 @@
             return 0;
     }
 
+    /*Add and remove class*/
+    function addMyClass(handler, myClass, time) {
+        handler.addClass(myClass);
+    }
     var app = angular.module('scrollshow', []);
     app.directive("scrollshow", function ($window) {
         return function (scope, element, attrs) {
-            var alreadyScrolled = false;
+
             angular.element($window).bind("scroll", function () {
                 var thisElement = element[0];
+                var alreadyScrolled = false;
+                var animateType = 'top'; //default animateType if not given
+                var animateTime = 0.3; //default animateTime if not given
+                var fixedWidth = 0; //default fix for width calculate if animate is top or bottom
+                var delayTime = 0; //default animate-class-time if not given
+                var myClass = null;
+                var height = Math.round(thisElement.getBoundingClientRect().top) - fixedWidth - $window.innerHeight;
+                if (attrs.animateClass != undefined) {
+                    myClass = attrs.animateClass;
+                    if (attrs.animateClassTime != undefined) {
+                        delayTime = attrs.animateClassTime;
+                    }
+                    addMyClass(thisElement, myClass, delayTime);
+                }
                 if (attrs.animateTime != undefined) {
-                    var animateTime = attrs.animateTime;
-                } else var animateTime = 0.3; //default animateTime if not given
+                    animateTime = attrs.animateTime;
+                }
                 if (attrs.animateType != undefined) {
-                    var animateType = attrs.animateType;
-                } else var animateType = 'top'; //default animateType if not given
-                /*set the start position of the element before reach it by scroll (only for bottom or top fix)*/
-                var fixedWidth = 0;
+                    animateType = attrs.animateType;
+                }
                 if (animateType == 'top')
                     fixedWidth = 200;
                 else if (animateType == 'bottom')
                     fixedWidth = -200;
-                var height = Math.round(thisElement.getBoundingClientRect().top) - fixedWidth - $window.innerHeight;
                 if (!alreadyScrolled)
                     chooseAnimateDefault(animateType, thisElement); //Execute an default settings for animate
                 if (height <= 0) {
