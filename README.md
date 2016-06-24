@@ -25,7 +25,18 @@ This method gives you an additional options, including different time and type o
 * ``` bottom ``` Element slides from top to bottom
 * ``` right ``` Element slides form left to right
 * ``` left ``` Element slides from right to left
-* ```class-[your_class] ``` Adding [your_class] as an efect on scroll
+* ``` none ``` Turning off declared animation
+
+ - animate-class"[your_class]" add [your_class] as an efect on scroll
+ - animate-class-time="" add a delay time for add class (in seconds)
+
+This method also gives you a string variable called 'scrollshowVarSet' which returns you an element tag name (e.g. p.class#id) while you reach an element and returns 'false' while you leave it (by default). Use
+
+- var-set="" to set a way of return this variable
+* ```set``` Default state, as described upper
+* ```reach``` Returns element tag name while element reeached but doesn't change after leaving it
+* ```leave``` Returns only 'false' while leaving an element
+* ``` none ``` Doesn't return you any state
 
 
 For example:
