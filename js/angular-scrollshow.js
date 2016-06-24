@@ -125,6 +125,7 @@
                 var myClass = null;
                 var changeClassAnimate = false;
                 var height = Math.round(thisElement.getBoundingClientRect().top) - $window.innerHeight;
+
                 if (attrs.animateClass != undefined) {
                     myClass = attrs.animateClass;
                     if (attrs.animateClassTime != undefined) {
@@ -146,12 +147,14 @@
                 height -= fixedWidth; //if upper if/else changes fixedWidth value it calculate total height
                 if (!alreadyScrolled)
                     chooseAnimateDefault(animateType, thisElement); //Execute an default settings for an animate
+
                 if (height <= 0) {
                     chooseAnimate(animateType, thisElement, animateTime); //Execute an animate
                     if (changeClassAnimate)
                         $timeout(function () {
                             addMyClass(thisElement, myClass)
                         }, delayTime);
+
                     alreadyScrolled = true; // don't change any on scroll if element has been showed once
                 }
                 scope.$apply();
