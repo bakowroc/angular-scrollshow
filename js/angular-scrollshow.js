@@ -8,7 +8,7 @@
     
     Date:       21.06.2016
     
-    Ver:        Beta 1.0
+    Ver:        Beta 1.2
     
 */
 
@@ -107,10 +107,11 @@
             return 0;
     }
 
-    /*Add and remove class*/
+    /*Add a class*/
     function addMyClass(handler, myClass) {
         angular.element(handler).addClass(myClass);
     }
+
     var app = angular.module('scrollshow', []);
     app.directive("scrollshow", function ($window, $timeout) {
         return function (scope, element, attrs) {
@@ -120,7 +121,7 @@
                 var animateType = 'top'; //default animateType if not given
                 var animateTime = 0.3; //default animateTime if not given
                 var fixedWidth = 0; //default fix for width calculate if animate is top or bottom
-                var delayTime = 0; //default animate-class-time if not given
+                var delayTime = 0.5; //default animate-class-time if not given
                 var myClass = null;
                 var changeClassAnimate = false;
                 var height = Math.round(thisElement.getBoundingClientRect().top) - $window.innerHeight;
@@ -131,7 +132,6 @@
                         delayTime *= 1000;
                     }
                     changeClassAnimate = true;
-
                 }
                 if (attrs.animateTime != undefined) {
                     animateTime = attrs.animateTime;
@@ -145,7 +145,7 @@
                     fixedWidth = -200;
                 height -= fixedWidth; //if upper if/else changes fixedWidth value it calculate total height
                 if (!alreadyScrolled)
-                    chooseAnimateDefault(animateType, thisElement); //Execute an default settings for animate
+                    chooseAnimateDefault(animateType, thisElement); //Execute an default settings for an animate
                 if (height <= 0) {
                     chooseAnimate(animateType, thisElement, animateTime); //Execute an animate
                     if (changeClassAnimate)
